@@ -1,8 +1,6 @@
 typedef struct cliente {
     int cpf;
-    char[20] nome;
-    char[16] telefeone;
-    char[10] rg;
+    char nome[20], telefeone[16], rg[10];
 } Cliente;
 
 typedef struct noArvore {
@@ -12,9 +10,9 @@ typedef struct noArvore {
 } NoArvore;
 
 NoArvore criaArvore(){
-	NoArvore novaArvore = (NoArvore *) malloc(sizeof(NoArvore));
+	NoArvore novaArvore;
 	novaArvore.conteudo = NULL;
-	novaArvore.ListaDupla = NULL;
+	novaArvore.contas = NULL;
 	novaArvore.esquerda = NULL;
 	novaArvore.direita = NULL;
 	return novaArvore;
@@ -36,6 +34,6 @@ void exibirCliente(Cliente c){
 
 }
 
-void alterarDadosCliente(int cpf, char[20] nome, char[16] tel){
+void alterarDadosCliente(int cpf, char nome[20], char tel[16]){
 
 }

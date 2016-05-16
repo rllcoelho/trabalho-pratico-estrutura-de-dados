@@ -1,30 +1,34 @@
-typedef struct cliente
-{
+typedef struct cliente {
     int cpf;
     char[20] nome;
     char[16] telefeone;
-    ListaDupla *contas;
-} Cliente*;
+    char[10] rg;
+} Cliente;
 
-typedef struct noArvore
-{
+typedef struct noArvore {
     Cliente *conteudo;
-    NoArvore* esquerda, direita;
-} NoArvore*;
+    ListaDupla *contas;
+    struct noArvore *esquerda, *direita;
+} NoArvore;
 
-void criaArvore(){
-
+NoArvore criaArvore(){
+	NoArvore novaArvore = (NoArvore *) malloc(sizeof(NoArvore));
+	novaArvore.conteudo = NULL;
+	novaArvore.ListaDupla = NULL;
+	novaArvore.esquerda = NULL;
+	novaArvore.direita = NULL;
+	return novaArvore;
 }
 
 void inserirNoArvore(NoArvore* raiz, Cliente* c){
-
+	
 }
 
 void excluirNoArvore(NoArvore* raiz, Cliente* c){
 
 }
 
-Cliente* encontrarPorCPF(NoArvore* raiz, int cpf){
+Cliente encontrarPorCPF(NoArvore* raiz, int cpf){
 
 }
 

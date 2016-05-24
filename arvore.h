@@ -117,11 +117,11 @@ void exibirCliente(NoArvore arvore, int cpf){
 	printf("RG: %s\n", c->rg);
 }
 
-void alterarDadosCliente(int cpf, char nome[30], char tel[16], char rg[10]){
+void alterarDadosCliente(NoArvore arvore, int cpf, char nome[30], char tel[16], char rg[10]){
 	Cliente *c;
 	c = encontrarPorCPF(&arvore, cpf);
-	c->nome = nome;
-	c->telefone = tel;
-	c->rg = rg;
+	strcpy(c->nome, nome);
+	strcpy(c->telefone, tel);
+	strcpy(c->rg, rg);
 	printf("Cliente editado com sucesso!");
 }

@@ -108,10 +108,20 @@ Cliente* encontrarPorCPF(NoArvore* arvore, int cpf){
 	return 0;
 }
 
-void exibirCliente(NoArvore arvore, NoArvore *c){
-	
+void exibirCliente(NoArvore arvore, int cpf){
+	Cliente *c;
+	c = encontrarPorCPF(&arvore, cpf);
+	printf("Dados do cliente:\n\n");
+	printf("Nome: %s\n", c->nome);
+	printf("Telefone: %s\n", c->telefone);
+	printf("RG: %s\n", c->rg);
 }
 
-void alterarDadosCliente(int cpf, char nome[30], char tel[16]){
-
+void alterarDadosCliente(int cpf, char nome[30], char tel[16], char rg[10]){
+	Cliente *c;
+	c = encontrarPorCPF(&arvore, cpf);
+	c->nome = nome;
+	c->telefone = tel;
+	c->rg = rg;
+	printf("Cliente editado com sucesso!");
 }

@@ -37,8 +37,49 @@ void inserirNoArvore(NoArvore* arvore, Cliente* c){
 		printf("Já existe um cliente cadastrado com esse cpf.\n");
 }
 
-void excluirNoArvore(NoArvore* arvore, Cliente* c){
+void antecessor(NoArvore arvore, NoArvore *no){
+	if(no->direita){
+        antecessor(arvore, no->direita);
+        return;
+    }
+    arvore.conteudo = no->conteudo;
+    arvore.contas = no->contas;
+    arvore = *no;
+    no = no->esquerda;
+    free(&arvore);
+}
 
+void excluirNoArvore(NoArvore *arvore, Cliente* c){
+	NoArvore* aux;
+	if(!arvore){
+		printf("Não há nenhum cliente com esse cpf no sistema.");
+		return;
+	}
+	if(c->cpf < arvore->conteudo->cpf){
+        excluirNoArvore(arvore->esquerda, c);
+        return;
+	}
+    if(c->cpf > arvore->conteudo->cpf){
+        excluirNoArvore(arvore->direita, c);
+        return;
+	}
+    if(arvore->direita == NULL){
+        aux = arvore;
+        arvore = arvore->esquerda;
+        excluirListaDupla(aux->contas); //mudar nome para função do arquivo de listas duplas
+        free(aux->conteudo);
+        free(aux);
+        return;
+    }
+    if(arvore->esquerda){
+        antecessor(*arvore,arvore->esquerda);
+        return;
+    }
+    aux = arvore;
+    arvore = arvore->direita;
+    excluirListaDupla(aux->contas); //mudar nome para função do arquivo de listas duplas
+    free(aux->conteudo);
+    free(aux);
 }
 
 void novoCliente(NoArvore* arvore, int cpf, char nome[30], char tel[16], char rg[10]){

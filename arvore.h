@@ -52,7 +52,7 @@ void antecessor(NoArvore arvore, NoArvore *no){
 void excluirNoArvore(NoArvore *arvore, Cliente* c){
 	NoArvore* aux;
 	if(!arvore){
-		printf("Não há nenhum cliente com esse cpf no sistema.");
+		printf("Não há cliente com esse cpf no sistema.");
 		return;
 	}
 	if(c->cpf < arvore->conteudo->cpf){
@@ -92,12 +92,24 @@ void novoCliente(NoArvore* arvore, int cpf, char nome[30], char tel[16], char rg
 	inserirNoArvore(arvore, c);
 }
 
-Cliente encontrarPorCPF(NoArvore* arvore, int cpf){
-
+Cliente* encontrarPorCPF(NoArvore* arvore, int cpf){
+	if(!arvore){
+		printf("Não há cliente com esse cpf no sistema.");
+		return 0;
+	}
+	if(arvore->conteudo->cpf < cpf){
+		encontrarPorCPF(arvore->direita, cpf);
+		return 0;
+	}
+	if(arvore->conteudo->cpf > cpf)
+		encontrarPorCPF(arvore->esquerda, cpf);
+	else
+		return arvore->conteudo;
+	return 0;
 }
 
-void exibirCliente(Cliente c){
-
+void exibirCliente(NoArvore arvore, NoArvore *c){
+	
 }
 
 void alterarDadosCliente(int cpf, char nome[30], char tel[16]){

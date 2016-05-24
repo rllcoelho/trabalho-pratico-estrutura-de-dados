@@ -10,15 +10,14 @@ void menuCliente(NoArvore* arvore){
 	printf("Remover um cliente: digite 3\n");
 	printf("Exibir um cliente: digite 4\n");
 	printf("Voltar ao menu principal: digite 5\n");
-	int opcao;
+	int opcao, cpf;
 	scanf("%d",&opcao);
 	switch(opcao){
 		case 1: ;
-			int cpf;
 			char nome[30],tel[16],rg[10];
 			printf("Digite os dados do novo cliente\n");
 			printf("CPF: ");
-			scanf("%d",&cpf);
+			scanf("%d", &cpf);
 			printf("Nome: ");
 			scanf("%s", nome);
 			//fgets(nome, sizeof(nome), stdin);
@@ -28,7 +27,6 @@ void menuCliente(NoArvore* arvore){
 			printf("RG: ");
 			scanf("%s", rg);
 			//fgets(rg, sizeof(rg), stdin);
-			printf("AAAAAAAAAAA ");
 			novoCliente(arvore, cpf, nome, tel, rg);
 			break;
 		case 2:
@@ -36,6 +34,11 @@ void menuCliente(NoArvore* arvore){
 		case 3:
 			break;
 		case 4:
+			printf("Digite o CPF do cliente\n");
+			scanf("%d",&cpf);
+			exibirCliente(*arvore,cpf);
+			break;
+		case 5:
 			exit(0);
 			break;
 		default:
@@ -74,6 +77,7 @@ void menuPrincipal(NoArvore* arvore){
 
 int main(){
 	NoArvore arvore;
+	arvore = criaArvore();
 	/*int cpf;
 	char nome[30],tel[16],rg[10];
 	printf("AAAAAAAAAAA ");
@@ -81,7 +85,6 @@ int main(){
 	strcpy(nome, "pafuncio");
 	strcpy(tel, "99999-9999");
 	strcpy(rg, "999.999");
-	arvore = criaArvore();
 	printf("AAAAAAAAAAA ");
 	novoCliente(&arvore, cpf, nome, tel, rg);*/
 	menuPrincipal(&arvore);

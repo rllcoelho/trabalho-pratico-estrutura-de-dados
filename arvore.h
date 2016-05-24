@@ -5,7 +5,8 @@ typedef struct cliente {
 
 typedef struct noArvore {
     Cliente *conteudo;
-    ListaDupla *contas;
+    //ListaDupla *contas;
+    int *contas;
     struct noArvore *esquerda, *direita;
 } NoArvore;
 
@@ -19,6 +20,7 @@ NoArvore criaArvore(){
 }
 
 void inserirNoArvore(NoArvore* arvore, Cliente* c){
+	printf("AAAAAAAAAAA ");
 	if(arvore == NULL){
 		arvore = (NoArvore*) malloc (sizeof(NoArvore));
 		arvore->conteudo = c;
@@ -66,7 +68,7 @@ void excluirNoArvore(NoArvore *arvore, Cliente* c){
     if(arvore->direita == NULL){
         aux = arvore;
         arvore = arvore->esquerda;
-        excluirListaDupla(aux->contas); //mudar nome para função do arquivo de listas duplas
+        //excluirListaDupla(aux->contas); //mudar nome para função do arquivo de listas duplas
         free(aux->conteudo);
         free(aux);
         return;
@@ -77,12 +79,13 @@ void excluirNoArvore(NoArvore *arvore, Cliente* c){
     }
     aux = arvore;
     arvore = arvore->direita;
-    excluirListaDupla(aux->contas); //mudar nome para função do arquivo de listas duplas
+    //excluirListaDupla(aux->contas); //mudar nome para função do arquivo de listas duplas
     free(aux->conteudo);
     free(aux);
 }
 
 void novoCliente(NoArvore* arvore, int cpf, char nome[30], char tel[16], char rg[10]){
+	printf("AAAAAAAAAAA ");
 	Cliente *c;
 	c = (Cliente*) malloc (sizeof(Cliente));
 	c->cpf = cpf;

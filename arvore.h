@@ -5,8 +5,7 @@ typedef struct cliente {
 
 typedef struct noArvore {
     Cliente *conteudo;
-    //ListaDupla *contas;
-    int *contas;
+    ListaDupla *contas;
     struct noArvore *esquerda, *direita;
 } NoArvore;
 

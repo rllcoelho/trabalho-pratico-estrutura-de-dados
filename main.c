@@ -75,6 +75,49 @@ void menuCliente(NoArvore** arvore){
 	}
 }
 
+void menuConta(NoArvore** arvore){
+	int opcao, cpf, confirma, numConta;
+	printf("Digite o CPF do cliente: ");
+	scanf("%d", &cpf);
+	NoArvore *c;
+	c = exibirCliente(*arvore, cpf, 2);
+	if (!c) {
+		printf("Não há cliente com esse CPF no sistema.\n");
+		return;
+	}
+	ListaDupla *contas;
+	contas = c->contas;
+	printf("Selecione a operação desejada:\n");
+	printf("Inserir uma conta: digite 1\n");
+	printf("Editar o número de uma conta: digite 2\n");
+	printf("Exibir uma conta: digite 3\n");
+	printf("Remover uma conta: digite 4\n");
+	printf("Voltar ao menu principal: digite 5\n\n");
+	scanf("%d",&opcao);
+	printf("\n");
+	switch(opcao){
+		case 1:
+			printf("Digite o número da conta: ");
+			scanf("%d", &numConta);
+			insereListaDupla(&contas, numConta);
+			break;
+		case 2:
+			
+			break;
+		case 3:
+			
+			break;
+		case 4:
+			
+			break;
+		case 5:
+			break;
+		default:
+			printf("Opção inválida, tente novamente\n\n\n");
+			break;
+	}
+}
+
 void menuTipoConta(NoArvore** arvore){
 	int opcao, cpf, confirma, numConta;
 	float valor;
@@ -166,7 +209,7 @@ void menuPrincipal(NoArvore** arvore){
 			menuCliente(arvore);
 			break;
 		case 2:
-			//menuConta();
+			menuConta(arvore);
 			break;
 		case 3:
 			menuTipoConta(arvore);

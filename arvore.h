@@ -62,18 +62,26 @@ void encontrarPorCPF(NoArvore* arvore, Cliente** c){
 		*c = arvore->conteudo;
 }
 
-void exibirCliente(NoArvore* arvore, int cpf){
+Cliente* exibirCliente(NoArvore* arvore, int cpf, int acao){
 	Cliente *c;
 	c = (Cliente*) malloc (sizeof(Cliente));
 	c->cpf = cpf;
 	encontrarPorCPF(arvore, &c);
-	if (c->cpf){
-		printf("Dados do cliente:\n\n");
-		printf("Nome: %s\n", c->nome);
-		printf("Telefone: %s\n", c->telefone);
-		printf("RG: %s\n\n\n", c->rg);
-	}else
-		printf("Não há cliente com esse CPF no sistema.\n\n\n");	
+	if (c->cpf)
+		switch(acao){
+			case 1:
+				printf("Dados do cliente:\n\n");
+				printf("Nome: %s\n", c->nome);
+				printf("Telefone: %s\n", c->telefone);
+				printf("RG: %s\n\n\n", c->rg);
+				return NULL;
+				break;
+			case 2:
+				return c;
+				break;
+		}
+	printf("Não há cliente com esse CPF no sistema.\n\n\n");
+	return NULL;
 }
 
 void alterarDadosCliente(NoArvore** arvore, int cpf, char nome[30], char tel[16], char rg[10]){

@@ -133,7 +133,6 @@ void menuTipoConta(NoArvore** arvore){
 		case 3:
 			printf("Digite o nome do tipo de conta: ");
 			scanf("%s", nome);
-
 			novoTipoConta(&lista, nome);
 			break;
 		case 4:

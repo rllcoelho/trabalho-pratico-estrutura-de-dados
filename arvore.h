@@ -62,9 +62,12 @@ void encontrarPorCPF(NoArvore* arvore, NoArvore** c){
 }
 
 NoArvore* exibirCliente(NoArvore* arvore, int cpf, int acao){
+
 	NoArvore *c;
-	c = (NoArvore*) malloc (sizeof(NoArvore));
+	c = criaArvore();
+	c->conteudo = (Cliente*) malloc (sizeof(Cliente));
 	c->conteudo->cpf = cpf;
+	printf("aaa\n");
 	encontrarPorCPF(arvore, &c);
 	if (c->conteudo->cpf)
 		switch(acao){
@@ -85,7 +88,8 @@ NoArvore* exibirCliente(NoArvore* arvore, int cpf, int acao){
 
 void alterarDadosCliente(NoArvore** arvore, int cpf, char nome[30], char tel[16], char rg[10]){
 	NoArvore *c;
-	c = (NoArvore*) malloc (sizeof(NoArvore));
+	c = criaArvore();
+	c->conteudo = (Cliente*) malloc (sizeof(Cliente));
 	c->conteudo->cpf = cpf;
 	encontrarPorCPF(*arvore, &c);
 	if (c->conteudo->cpf){
@@ -144,7 +148,8 @@ void excluirNoArvore(NoArvore** arvore, Cliente* c){
 
 void removerCliente(NoArvore** arvore, int cpf){
 	NoArvore *c;
-	c = (NoArvore*) malloc (sizeof(NoArvore));
+	c = criaArvore();
+	c->conteudo = (Cliente*) malloc (sizeof(Cliente));
 	c->conteudo->cpf = cpf;
 	encontrarPorCPF(*arvore, &c);
 	if (c->conteudo->cpf){

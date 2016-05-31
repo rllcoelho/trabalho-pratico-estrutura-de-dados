@@ -37,13 +37,13 @@ ListaSimples* criaLista() {
 	return lista;
 }
 
-NoLista* buscaTipoConta(ListaSimples* lista, char descricao[30]) {
+TipoDeConta* buscaTipoConta(ListaSimples* lista, char descricao[30]) {
 	//Procura se há um tipo de conta com esse nome, retorna o tipo se encontrar ou NULL se não encontrar
 	NoLista *aux;
 	aux = lista->prim;
 	while(aux){
 		if (aux->conteudo->descricao == descricao) {
-			return aux;
+			return aux->conteudo;
 		}
 		aux = aux->prox;
 	}

@@ -1,6 +1,6 @@
 typedef struct noListaDupla {
     int numConta;
-    listaSimples *tiposDeConta;
+    ListaSimples *tiposDeConta;
     struct noListaDupla *prox, *ant;
 } NoListaDupla;
 
@@ -86,7 +86,7 @@ NoListaDupla* exibeConta(ListaDupla *lista, int conta, int acao) {
 
     while(seletor){
         if (seletor->numConta == conta && acao == 1) {
-            noLista *aux;
+            NoLista *aux;
             aux = seletor->tiposDeConta->prim;
             printf("Essa conta possui os seguintes tipos, com seus respectivos saldos:\n");
             while(aux){
@@ -100,4 +100,5 @@ NoListaDupla* exibeConta(ListaDupla *lista, int conta, int acao) {
         }
         seletor = seletor->prox;
     }
+    return NULL;
 }

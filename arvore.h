@@ -64,6 +64,7 @@ void encontrarPorCPF(NoArvore* arvore, NoArvore** c){
 NoArvore* exibirCliente(NoArvore* arvore, int cpf, int acao){
 	NoArvore *c;
 	c = (NoArvore*) malloc (sizeof(NoArvore));
+	c->conteudo = (Cliente*) malloc(sizeof(Cliente));
 	c->conteudo->cpf = cpf;
 	encontrarPorCPF(arvore, &c);
 	if (c->conteudo->cpf)

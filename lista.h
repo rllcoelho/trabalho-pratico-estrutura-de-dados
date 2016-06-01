@@ -1,3 +1,16 @@
+typedef struct noListaDupla
+{
+    int numConta;
+    TipoDeConta *tiposDeConta;
+    struct nolistaDupla *prox, *ant;
+} NoListaDupla;
+
+typedef struct listaDupla
+{
+    NoListaDupla *prim, *ult;
+    int tam;
+}ListaDupla;
+
 typedef struct tipoDeConta {
 	int chave;//tipos: 1=conta corrente, 2=poupança, 3=investimento
 	char descricao[30];
@@ -77,6 +90,6 @@ void movimentaSaldo(TipoDeConta** tipoConta, float valor, int acao){
 	printf("Operação realizada com sucesso. Saldo atual: %.2f\n", tipoConta->saldo);
 }
 
-void listaTiposConta() {
+void listaTiposConta(Cliente** c, int conta) {
 
 }

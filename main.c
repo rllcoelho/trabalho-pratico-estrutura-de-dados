@@ -99,6 +99,7 @@ void menuConta(NoArvore** arvore){
 	printf("\n");
 	switch(opcao){
 		case 1:
+			printf("Para selecionar o tipo de conta desejado, digite o valor correspondente:\n");
 			
 			break;
 		case 2:

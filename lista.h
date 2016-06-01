@@ -50,12 +50,13 @@ ListaSimples* criaLista() {
 	return lista;
 }
 
-NoLista* buscaTipoConta(ListaSimples* lista, char descricao[30]) {//Procura se há um tipo de conta com esse nome, retorna o tipo se encontrar ou NULL se não encontrar
+TipoDeConta* buscaTipoConta(ListaSimples* lista, char descricao[30]) {
+	//Procura se há um tipo de conta com esse nome, retorna o tipo se encontrar ou NULL se não encontrar
 	NoLista *aux;
 	aux = lista->prim;
 	while(aux){
 		if (aux->conteudo->descricao == descricao) {
-			return aux;
+			return aux->conteudo;
 		}
 		aux = aux->prox;
 	}
@@ -69,7 +70,7 @@ void inserirNoLista(ListaSimples** lista, NoLista* no) {
 	printf("Tipo de conta adicionado com sucesso\n\n\n");
 }
 
-void novoTipoConta(ListaSimples** lista, char descricao[30], float saldo) {
+void novoTipoConta(ListaSimples** lista, char descricao[30]) {
 	if (buscaTipoConta(*lista, descricao)) {
 		printf("Essa conta já possui esse tipo.\n\n\n");
 		return;
@@ -78,16 +79,16 @@ void novoTipoConta(ListaSimples** lista, char descricao[30], float saldo) {
 	no = (NoLista*) malloc (sizeof(NoLista));
 	no->conteudo->chave = (*lista)->ult->conteudo->chave+1;
 	strcpy(no->conteudo->descricao, descricao);
-	no->conteudo->saldo = saldo;
+	no->conteudo->saldo = 0;
 	inserirNoLista(lista, no);
 }
 
-void movimentaSaldo(TipoDeConta** tipoConta, float valor, int acao){
-	if (acao == 1) 
-		tipoConta->saldo += valor;
+void movimentaSaldo(TipoDeConta** tipoConta, float valor, int acao){//ação 1 = creditar, ação 2 = debitar
+	if (acao == 1)
+		(*tipoConta)->saldo += valor;
 	else
-		tipoConta->saldo -= valor;
-	printf("Operação realizada com sucesso. Saldo atual: %.2f\n", tipoConta->saldo);
+		(*tipoConta)->saldo -= valor;
+	printf("Operação realizada com sucesso. Saldo atual: %.2f\n", (*tipoConta)->saldo);
 }
 
 void listaTiposConta(Cliente** c, int conta) {

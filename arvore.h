@@ -5,8 +5,7 @@ typedef struct cliente {
 
 typedef struct noArvore {
     Cliente *conteudo;
-    //ListaDupla *contas;
-    int *contas;
+    ListaDupla *contas;
     struct noArvore *esquerda, *direita;
 } NoArvore;
 
@@ -47,33 +46,36 @@ void novoCliente(NoArvore** arvore, int cpf, char nome[30], char tel[16], char r
 	inserirNoArvore(arvore, c);
 }
 
-void encontrarPorCPF(NoArvore* arvore, Cliente** c){
+void encontrarPorCPF(NoArvore* arvore, NoArvore** c){
 	if(!arvore || !arvore->conteudo){
-		(*c)->cpf = 0;
+		(*c)->conteudo->cpf = 0;
 		return;
 	}
-	if(arvore->conteudo->cpf < (*c)->cpf){
+	if(arvore->conteudo->cpf < (*c)->conteudo->cpf){
 		encontrarPorCPF(arvore->direita, c);
 		return;
 	}
-	if(arvore->conteudo->cpf > (*c)->cpf)
+	if(arvore->conteudo->cpf > (*c)->conteudo->cpf)
 		encontrarPorCPF(arvore->esquerda, c);
 	else
-		*c = arvore->conteudo;
+		*c = arvore;
 }
 
-Cliente* exibirCliente(NoArvore* arvore, int cpf, int acao){
-	Cliente *c;
-	c = (Cliente*) malloc (sizeof(Cliente));
-	c->cpf = cpf;
+NoArvore* exibirCliente(NoArvore* arvore, int cpf, int acao){
+
+	NoArvore *c;
+	c = criaArvore();
+	c->conteudo = (Cliente*) malloc (sizeof(Cliente));
+	c->conteudo->cpf = cpf;
+	printf("aaa\n");
 	encontrarPorCPF(arvore, &c);
-	if (c->cpf)
+	if (c->conteudo->cpf)
 		switch(acao){
 			case 1:
 				printf("Dados do cliente:\n\n");
-				printf("Nome: %s\n", c->nome);
-				printf("Telefone: %s\n", c->telefone);
-				printf("RG: %s\n\n\n", c->rg);
+				printf("Nome: %s\n", c->conteudo->nome);
+				printf("Telefone: %s\n", c->conteudo->telefone);
+				printf("RG: %s\n\n\n", c->conteudo->rg);
 				return NULL;
 				break;
 			case 2:
@@ -85,14 +87,15 @@ Cliente* exibirCliente(NoArvore* arvore, int cpf, int acao){
 }
 
 void alterarDadosCliente(NoArvore** arvore, int cpf, char nome[30], char tel[16], char rg[10]){
-	Cliente *c;
-	c = (Cliente*) malloc (sizeof(Cliente));
-	c->cpf = cpf;
+	NoArvore *c;
+	c = criaArvore();
+	c->conteudo = (Cliente*) malloc (sizeof(Cliente));
+	c->conteudo->cpf = cpf;
 	encontrarPorCPF(*arvore, &c);
-	if (c->cpf){
-		strcpy(c->nome, nome);
-		strcpy(c->telefone, tel);
-		strcpy(c->rg, rg);
+	if (c->conteudo->cpf){
+		strcpy(c->conteudo->nome, nome);
+		strcpy(c->conteudo->telefone, tel);
+		strcpy(c->conteudo->rg, rg);
 		printf("Cliente editado com sucesso!\n\n\n");
 	} else
 		printf("Não há cliente com esse CPF no sistema.\n\n\n");
@@ -144,12 +147,13 @@ void excluirNoArvore(NoArvore** arvore, Cliente* c){
 }
 
 void removerCliente(NoArvore** arvore, int cpf){
-	Cliente *c;
-	c = (Cliente*) malloc (sizeof(Cliente));
-	c->cpf = cpf;
+	NoArvore *c;
+	c = criaArvore();
+	c->conteudo = (Cliente*) malloc (sizeof(Cliente));
+	c->conteudo->cpf = cpf;
 	encontrarPorCPF(*arvore, &c);
-	if (c->cpf){
-		excluirNoArvore(arvore, c);
+	if (c->conteudo->cpf){
+		excluirNoArvore(arvore, c->conteudo);
 		printf("Cliente removido com sucesso!\n\n\n");
 	}else
 		printf("Não há cliente com esse CPF no sistema.\n\n\n");	

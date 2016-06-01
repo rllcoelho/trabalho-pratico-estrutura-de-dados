@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "arvore.h"
 #include "lista.h"
+#include "listaDupla.h"
+#include "arvore.h"
 
 void menuCliente(NoArvore** arvore){
 	printf("Selecione a operação desejada:\n");
@@ -54,11 +55,11 @@ void menuCliente(NoArvore** arvore){
 		case 4:
 			printf("Digite o CPF do cliente: ");
 			scanf("%d",&cpf);
-			Cliente *c;
-			c = exibirCliente(*arvore, cpf, 1);
+			NoArvore *c;
+			c = exibirCliente(*arvore, cpf, 2);
 			if (!c)
 				break;
-			printf("Tem certeza de que deseja remover do sistema o cliente %s? (1 para sim, 2 para não)\n", c->nome);
+			printf("Tem certeza de que deseja remover do sistema o cliente %s? (1 para sim, 2 para não)\n", c->conteudo->nome);
 			scanf("%d", &confirma);
 			if (confirma == 1){
 				printf("\n");
@@ -75,17 +76,71 @@ void menuCliente(NoArvore** arvore){
 }
 
 void menuConta(NoArvore** arvore){
-	int opcao, cpf, confirma, conta;
+	int opcao, cpf, confirma, numConta;
 	printf("Digite o CPF do cliente: ");
 	scanf("%d", &cpf);
-	Cliente *c;
+	NoArvore *c;
 	c = exibirCliente(*arvore, cpf, 2);
-	if (!c){
-		menuConta(arvore);
+	if (!c) {
+		printf("Não há cliente com esse CPF no sistema.\n");
 		return;
 	}
-	/*printf("Digite o número da conta: ");
-	scanf("%d", &conta);*/
+	ListaDupla *contas;
+	contas = c->contas;
+	printf("Selecione a operação desejada:\n");
+	printf("Inserir uma conta: digite 1\n");
+	printf("Editar o número de uma conta: digite 2\n");
+	printf("Exibir uma conta: digite 3\n");
+	printf("Remover uma conta: digite 4\n");
+	printf("Voltar ao menu principal: digite 5\n\n");
+	scanf("%d",&opcao);
+	printf("\n");
+	switch(opcao){
+		case 1:
+			printf("Digite o número da conta: ");
+			scanf("%d", &numConta);
+			insereListaDupla(&contas, numConta);
+			break;
+		case 2:
+			
+			break;
+		case 3:
+			
+			break;
+		case 4:
+			
+			break;
+		case 5:
+			break;
+		default:
+			printf("Opção inválida, tente novamente\n\n\n");
+			break;
+	}
+}
+
+void menuTipoConta(NoArvore** arvore){
+	int opcao, cpf, confirma, numConta;
+	float valor;
+	char nome[30];
+	TipoDeConta *tipoConta;
+	printf("Digite o CPF do cliente: ");
+	scanf("%d", &cpf);
+	NoArvore *c;
+	c = exibirCliente(*arvore, cpf, 2);
+	if (!c) {
+		printf("Não há cliente com esse CPF no sistema.\n");
+		return;
+	}
+	printf("Digite o número da conta: ");
+	scanf("%d", &numConta);
+	NoListaDupla *conta;
+	conta = exibeConta(c->contas, numConta, 2);
+	if (!conta) {
+		printf("Esse cliente não possui uma conta com esse número.\n");
+		return;
+	}
+	ListaSimples *lista;
+	lista = conta->tiposDeConta;
 	printf("Selecione a operação desejada:\n");
 	printf("Creditar valor a um tipo de conta: digite 1\n");
 	printf("Debitar valor de um tipo de conta: digite 2\n");
@@ -99,14 +154,29 @@ void menuConta(NoArvore** arvore){
 	printf("\n");
 	switch(opcao){
 		case 1:
-			printf("Para selecionar o tipo de conta desejado, digite o valor correspondente:\n");
-			
+			printf("Digite o nome do tipo de conta: ");
+			scanf("%s", nome);
+			printf("Digite o valor a ser creditado: ");
+			scanf("%f", &valor);
+			printf("\n");
+			tipoConta = buscaTipoConta(lista, nome);
+			if (tipoConta)
+				movimentaSaldo(&tipoConta, valor, 1);
 			break;
 		case 2:
-			
+			printf("Digite o nome do tipo de conta: ");
+			scanf("%s", nome);
+			printf("Digite o valor a ser debitado: ");
+			scanf("%f", &valor);
+			printf("\n");
+			tipoConta = buscaTipoConta(lista, nome);
+			if (tipoConta)
+				movimentaSaldo(&tipoConta, valor, 2);
 			break;
 		case 3:
-			
+			printf("Digite o nome do tipo de conta: ");
+			scanf("%s", nome);
+			novoTipoConta(&lista, nome);
 			break;
 		case 4:
 			
@@ -129,7 +199,7 @@ void menuPrincipal(NoArvore** arvore){
 	printf("Escolha uma das opções a seguir para continuar:\n");
 	printf("Operações sobre um cliente: digite 1\n");
 	printf("Operações sobre as contas de um cliente: digite 2\n");
-	printf("Operações sobre uma conta específica de um cliente: digite 3\n");
+	printf("Operações sobre um tipo de conta de um cliente: digite 3\n");
 	printf("Encerrar programa: digite 4\n\n");
 	int opcao;
 	scanf("%d",&opcao);
@@ -139,10 +209,10 @@ void menuPrincipal(NoArvore** arvore){
 			menuCliente(arvore);
 			break;
 		case 2:
-			//menuContas();
+			menuConta(arvore);
 			break;
 		case 3:
-			menuConta(arvore);
+			menuTipoConta(arvore);
 			break;
 		case 4:
 			exit(0);

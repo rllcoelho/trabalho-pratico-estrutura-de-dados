@@ -9,25 +9,29 @@ typedef struct listaDupla {
     int tam;
 }ListaDupla;
 
-void criaListaDupla(ListaDupla **lista) {
-    (*lista)->prim = NULL;
-    (*lista)->ult = NULL;
-    (*lista)->tam = 0;
+ListaDupla* criaListaDupla() {
+    ListaDupla* lista;
+    lista = (ListaDupla*) malloc(sizeof(ListaDupla));
+    lista->prim = NULL;
+    lista->ult = NULL;
+    lista->tam = 0;
+    return lista;
 }
 
 void insereListaDupla(ListaDupla **lista, int conta) {
     NoListaDupla *novo;
     novo = (NoListaDupla*) malloc(sizeof(NoListaDupla));
     novo->numConta = conta;
+    novo->tiposDeConta = criaLista();
     //se lista estiver vazia
     if ((*lista)->prim == NULL) {
         novo->ant = (*lista)->prim;
-        novo->prox = (*lista)->ult;   
-        (*lista)->ult = novo;  
+        novo->prox = (*lista)->ult;
+        (*lista)->ult = novo;
     } else { //se lista não esver vazia, insere no inicio
-        novo->ant = NULL;   
-        novo->prox = (*lista)->prim;   
-        (*lista)->prim->ant = novo; 
+        novo->ant = NULL;
+        novo->prox = (*lista)->prim;
+        (*lista)->prim->ant = novo;
     }
     (*lista)->prim = novo;
     (*lista)->tam++;
@@ -45,7 +49,7 @@ int posicaoNoListaDupla(ListaDupla *lista, int conta) {
         aux = aux->prox;
         pos++;
     }
-    return -1;
+    return 0;
 }
 
 void removeNoListaDupla(ListaDupla **lista, int pos) {

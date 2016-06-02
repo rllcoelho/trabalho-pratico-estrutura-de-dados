@@ -13,7 +13,7 @@ NoArvore* criaArvore(){
 	NoArvore *novaArvore;
 	novaArvore = (NoArvore*) malloc (sizeof(NoArvore));
 	novaArvore->conteudo = NULL;
-	novaArvore->contas = NULL;
+	novaArvore->contas = criaListaDupla();
 	novaArvore->esquerda = NULL;
 	novaArvore->direita = NULL;
 	return novaArvore;
@@ -62,12 +62,10 @@ void encontrarPorCPF(NoArvore* arvore, NoArvore** c){
 }
 
 NoArvore* exibirCliente(NoArvore* arvore, int cpf, int acao){
-
 	NoArvore *c;
 	c = criaArvore();
 	c->conteudo = (Cliente*) malloc (sizeof(Cliente));
 	c->conteudo->cpf = cpf;
-	printf("aaa\n");
 	encontrarPorCPF(arvore, &c);
 	if (c->conteudo->cpf)
 		switch(acao){

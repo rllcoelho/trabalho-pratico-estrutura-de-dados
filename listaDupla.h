@@ -38,7 +38,7 @@ void insereListaDupla(ListaDupla **lista, int conta) {
 }
 
 int posicaoNoListaDupla(ListaDupla *lista, int conta) {
-    int pos = 0;
+    int pos = 1;
     NoListaDupla *aux;
     aux = lista->prim;
 
@@ -95,6 +95,7 @@ NoListaDupla* exibeConta(ListaDupla *lista, int conta, int acao) {
             printf("Essa conta possui os seguintes tipos, com seus respectivos saldos:\n");
             while(aux){
                 printf("%s: %.2f\n", aux->conteudo->descricao, aux->conteudo->saldo);
+                aux = aux->prox;
             }
             printf("\n");
             return NULL;
@@ -105,4 +106,16 @@ NoListaDupla* exibeConta(ListaDupla *lista, int conta, int acao) {
         seletor = seletor->prox;
     }
     return NULL;
+}
+
+void detalhesDaConta(NoListaDupla *conta){
+    NoLista *aux;
+            
+    printf("Número da conta: %d\n", conta->numConta);
+    printf("Essa conta possui os seguintes tipos, com seus respectivos saldos:\n");
+    aux = conta->tiposDeConta->prim;
+    while(aux){
+        printf("%s: %.2f\n", aux->conteudo->descricao, aux->conteudo->saldo);
+        aux = aux->prox;
+    }
 }

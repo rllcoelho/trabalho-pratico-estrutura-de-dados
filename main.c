@@ -96,12 +96,14 @@ void menuConta(NoArvore** arvore){
     }
     ListaDupla *contas;
     contas = c->contas;
+    NoListaDupla *conta;
     printf("Selecione a operação desejada:\n");
     printf("Inserir uma conta: digite 1\n");
     printf("Editar o número de uma conta: digite 2\n");
     printf("Exibir uma conta: digite 3\n");
     printf("Remover uma conta: digite 4\n");
-    printf("Voltar ao menu principal: digite 5\n\n");
+    printf("Mover uma conta para outro cliente: digite 5\n");
+    printf("Voltar ao menu principal: digite 6\n\n");
     fgets(aux, sizeof(aux), stdin);
     sscanf(aux, "%d", &opcao);
     printf("\n");
@@ -117,7 +119,6 @@ void menuConta(NoArvore** arvore){
             printf("Digite o número da conta a ser alterado: ");
             fgets(aux, sizeof(aux), stdin);
             sscanf(aux, "%d", &numConta);
-            NoListaDupla *conta;
             conta = exibeConta(contas, numConta, 2);
             if (!conta){
                 printf("Esse cliente não possui uma conta com esse número.\n\n\n");
@@ -161,6 +162,27 @@ void menuConta(NoArvore** arvore){
             }
             break;
         case 5:
+            printf("Digite o número da conta que deseja transferir: ");
+            fgets(aux, sizeof(aux), stdin);
+            sscanf(aux, "%d", &numConta);
+            conta = exibeConta(contas, numConta, 2);
+            if(!conta) {
+                printf("Esse cliente não possui uma conta com esse número.\n\n\n");
+                break;
+            }
+            printf("Digite o cpf do cliente para o qual deseja transferir a conta: ");
+            fgets(aux, sizeof(aux), stdin);
+            sscanf(aux, "%d", &cpf);
+            NoArvore *c2;
+            c2 = exibirCliente(*arvore, cpf, 2);
+            if (!c2) {
+                break;
+            }
+            ListaDupla *contas2;
+            contas2 = c2->contas;
+            transferirCliente(&contas, &contas2, &conta);
+            break;
+        case 6:
             break;
         default:
             printf("Opção inválida, tente novamente\n\n\n");

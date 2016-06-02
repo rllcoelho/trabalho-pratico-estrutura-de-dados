@@ -69,7 +69,6 @@ void removeNoListaDupla(ListaDupla **lista, int pos) {
         (*lista)->ult = (*lista)->ult->ant;
     } else { /* remoção em outro lugar */   
         seletor = (*lista)->prim;
-
         for(i = 1; i < pos; i++) {
             seletor = seletor->prox;
         }
@@ -118,4 +117,23 @@ void detalhesDaConta(NoListaDupla *conta){
         printf("%s: %.2f\n", aux->conteudo->descricao, aux->conteudo->saldo);
         aux = aux->prox;
     }
+}
+
+void transferirCliente(ListaDupla** lista, ListaDupla** lista2, NoListaDupla** no){
+    if (*no != (*lista)->ult) {
+        (*no)->prox->ant = (*no)->ant;
+    }
+    if (*no == (*lista)->prim) {
+        (*lista)->prim = (*lista)->prim->prox;
+        if((*lista)->prim == NULL)
+        (*lista)->ult = NULL;
+        else
+            (*lista)->prim->ant = NULL;
+    } else
+        (*no)->ant->prox = (*no)->prox;
+    insereListaDupla(lista2, (*no)->numConta);
+    free((*no)->tiposDeConta);
+    free(*no);
+    (*lista)->tam--;
+    printf("Conta transferida com sucesso!\n\n\n");
 }
